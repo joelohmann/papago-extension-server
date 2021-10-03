@@ -11,10 +11,15 @@ app.listen(
     () => console.log(`server listening on http://localhost:${PORT}`)
 )
 
-// REST
-// Call Papago API
+// // Routes
+// app.get('/', (req, res) => {
+//     res.status(200).send({
+//         const
+//     })
+// });
+
 app.get("/api/translate", (req, res) => {
     res.status(200).send({
-        const reponse = await fetch(// Papago URL here)
+        const reponse = await fetch()// Papago URL here
     })
 });
