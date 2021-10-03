@@ -1,0 +1,1 @@
+This is a private server for handling API calls from my Papago for Opera extension. This servers holds the authentication credentials for using Naver's Open API, and will make calls to their Papago translation service on my Opera extension's behalf.
