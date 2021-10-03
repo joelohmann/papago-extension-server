@@ -19,7 +19,8 @@ app.listen(
 // });
 
 app.get("/api/translate", (req, res) => {
+    const reponse = await fetch("http://www.google.com")// Papago URL here
     res.status(200).send({
-        const reponse = await fetch()// Papago URL here
+        debug: true
     })
 });
