@@ -9,3 +9,10 @@ app.listen(port, (err) => {
     }
         return console.log(`server started [env, port] = [${env}, ${port}]`)
 });
+
+// TODO Remove
+app.get('/test', (req, res) => {
+  res.status(200).send({
+      test: 'hello'
+  })
+});
