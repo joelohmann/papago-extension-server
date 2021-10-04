@@ -8,5 +8,7 @@ app.use(express.json());
 
 // Mount API v1 routes
 app.use('api/v1', routes);
+// TODO take out
+console.log('mounted')
 
 module.exports = app;
