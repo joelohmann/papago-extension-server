@@ -32,6 +32,4 @@ const translate = function(data) {
     // .catch(err => console.log(err))
 };
 
-console.log("services")
-
 module.exports = translate;

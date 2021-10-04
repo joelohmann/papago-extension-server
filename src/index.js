@@ -8,5 +8,3 @@ app.listen(port, (err) => {
     }
         return console.log(`server started [env, port] = [${env}, ${port}]`)
 });
-
-console.log("index.js");
