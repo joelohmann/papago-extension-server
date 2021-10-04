@@ -19,4 +19,6 @@ router.route('/test').get((req, res) => {
     })
 });
 
+console.log("v1/index")
+
 module.exports = router;
