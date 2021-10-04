@@ -3,7 +3,7 @@ import fetch from 'node-fetch';
 // Constants
 const API_URL = 'https://openapi.naver.com/v1/papago/n2mt';
 
-const translate = async function(data) {
+const translate = function(data) {
     fetch(API_URL, {
         method: 'POST',
         headers: {
