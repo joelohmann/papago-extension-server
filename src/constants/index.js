@@ -9,4 +9,6 @@ const common = {
     env: process.env.NODE_ENV
 };
 
+console.log("constants")
+
 module.exports = common;

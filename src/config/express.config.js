@@ -9,4 +9,6 @@ app.use(express.json());
 // Mount API v1 routes
 app.use('api/v1', routes);
 
+console.log("express.config")
+
 module.exports = app;
