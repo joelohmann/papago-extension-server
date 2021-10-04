@@ -7,7 +7,7 @@ const router = express.Router();
 router.route('/translate').post((req, res) => {
     console.log(req.body);
 
-    let translation = await translate(req.body);
+    let translation = translate(req.body);
     console.log(translation);
     res.status(200).send(translation);
 });
