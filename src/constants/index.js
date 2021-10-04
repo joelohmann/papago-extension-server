@@ -1,6 +1,6 @@
 const path = require('path');
 // Import .env variables
-require('dotenv').load({
+require('dotenv').config({
     path: path.join(__dirname, '../../.env')
 });
 
