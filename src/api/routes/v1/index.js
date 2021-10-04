@@ -1,5 +1,6 @@
 const express = require('express');
-const translate = require('../../services/translate.service.js');
+// TODO Uncomment
+// const translate = require('../../services/translate.service.js');
 
 const router = express.Router();
 
@@ -18,7 +19,5 @@ router.route('/test').get((req, res) => {
         test: 'hello'
     })
 });
-
-console.log("v1/index")
 
 module.exports = router;
