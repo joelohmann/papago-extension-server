@@ -7,6 +7,6 @@ const app = express();
 app.use(express.json());
 
 // Mount API v1 routes
-app.use('api/v1', routes);
+app.use('/api/v1', routes);
 
 module.exports = app;
