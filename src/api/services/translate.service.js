@@ -1,6 +1,5 @@
 const fetch = require('node-fetch');
 
-// Constants
 const API_URL = 'https://openapi.naver.com/v1/papago/n2mt';
 
 async function translate(data) {
