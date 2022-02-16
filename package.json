@@ -8,17 +8,18 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/joelohmann/Papago-for-Opera-server.git"
+    "url": "git+https://github.com/joelohmann/papago-extension-server.git"
   },
   "author": "Joe Lohmann",
   "license": "ISC",
   "bugs": {
-    "url": "https://github.com/joelohmann/Papago-for-Opera-server/issues"
+    "url": "https://github.com/joelohmann/papago-extension-server/issues"
   },
-  "homepage": "https://github.com/joelohmann/Papago-for-Opera-server#readme",
+  "homepage": "https://github.com/joelohmann/papago-extension-server#readme",
   "dependencies": {
     "dotenv": "^10.0.0",
     "express": "^4.17.1",
-    "node-fetch": "^2.6.5"
+    "express-rate-limit": "^6.2.1",
+    "node-fetch": "^2.6.7"
   }
 }
