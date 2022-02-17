@@ -1,7 +1,7 @@
 const express = require('express');
 
-const detect = require('../../services/detect.service.js');
-const translate = require('../../services/translate.service.js');
+const detect = require('../../services/detect.js');
+const translate = require('../../services/translate.js');
 
 const router = express.Router();
 
@@ -10,7 +10,7 @@ router.route('/status').get((req, res) => {
         message: "OK",
         time: new Date().toISOString(),
         IP: req.ip,
-        URL: req.originalURL
+        URL: req.originalUrl
     });
 });
 
