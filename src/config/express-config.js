@@ -1,5 +1,5 @@
 const express = require('express');
-const limiter = require('../api/middlewares/rate.limiting.js')
+const limiter = require('../api/middlewares/rate-limiting.js')
 const routes = require('../api/routes/v1');
 
 const app = express();
