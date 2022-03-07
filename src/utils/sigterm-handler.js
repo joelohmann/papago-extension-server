@@ -1,68 +1,34 @@
-const fs = require('fs').promises;
-
-const handleDisconnect = require('./mysql.js');
-const logger = require('./logger.js');
-
-var connection;
-handleDisconnect();
+const fs = require('fs');
+const connection = require('./mysql.js');
 
 async function uploadFiles() {
-  // // Connect to database
-  // connection.connect(err => {
-  //   if (err) {
-  //     console.log(err);
-  //     logger.error(err);
-  //   }
+  console.log("Starting log upload...");
 
-  //   console.log("Worked");
-  // });
-
-  // try {
-  //   // TODO: Add .split to this to remove a line
-  //   let combined = await fs.readFile('./logs/combined.log', 'utf-8');
-
-  //   let sql = `INSERT INTO 'combined log' (Level, Time, Message) VALUES `;
-
-  //   let logs = combined.split(/[\r\n]+/);
-  //   logs.forEach(log => {
-  //     if (log.length > 0) {
-  //       let obj = JSON.parse(log);
-  //       sql += `('${obj.level}', '${obj.timestamp}', '${obj.message}'), `;
-  //     }
-  //   });
-
-  //   // if (sql.slice(-2) === ', ') sql = sql.substring(0, sql.length - 2);
-
-  //   console.log('SQL: ', sql);
-
-  //   connection.query(sql, (err, result) => {
-  //     if (err) logger.error(err);
-  //   });
-
-  // } catch (err) {
-  //   logger.error(err);
-  // }
+  connection.connect(err => {              
+    if (err) {                                  
+      console.log('error when connecting to db: ', err);
+    }                                     
+  });
 
   await Promise.all([
     // Update combined log
-    new Promise((resolve, reject) => {
-      console.log("Starting");
-      
+    new Promise((resolve, reject) => {      
       fs.readFile('./logs/combined.log', 'utf-8', (err, data) => {
         if (err) reject(err);
 
-        let sql = `INSERT INTO 'combined log' (Level, Time, Message) VALUES `;
+        let sql = "INSERT INTO combined_log (Time, Level, Message) VALUES ";
 
         let logs = data.split(/[\r\n]+/);
-        logs.forEach(log => {
+        logs.forEach((log, i) => {
           if (log.length > 0) {
             let obj = JSON.parse(log);
-            sql += `('${obj.level}', '${obj.timestamp}', '${obj.message}'), `;
+
+            sql += `('${obj.timestamp}', '${obj.level}', '${obj.message}')`;
+            if (i !== logs.length - 2) {
+              sql += ', ';
+            }
           }
         });
-
-        // if (sql.slice(-2) === ', ') sql = sql.substring(0, sql.length - 2);
-        console.log('SQL: ', sql);
 
         connection.query(sql, (err, result) => {
           if (err) reject(err);
@@ -76,18 +42,19 @@ async function uploadFiles() {
       fs.readFile('./logs/error.log', 'utf-8', (err, data) => {
         if (err) reject(err);
 
-        let sql = `INSERT INTO 'error log' (Time, Message) VALUES `;
+        let sql = "INSERT INTO error_log (Time, Message) VALUES ";
 
         let logs = data.split(/[\r\n]+/);
-        logs.forEach(log => {
+        logs.forEach((log, i) => {
           if (log.length > 0) {
             let obj = JSON.parse(log);
-            sql += `('${obj.level}', '${obj.timestamp}', '${obj.message}'), `;
+
+            sql += `('${obj.timestamp}', '${obj.message}')`;
+            if (i !== logs.length - 2) {
+              sql += ', ';
+            }
           }
         });
-
-        // if (sql.slice(-2) === ', ') sql = sql.substring(0, sql.length - 2);
-        console.log('SQL: ', sql);
 
         connection.query(sql, (err, result) => {
           if (err) reject(err);
@@ -104,8 +71,9 @@ async function uploadFiles() {
 function sigtermHandler(signal) {
   uploadFiles()
   .then(() => {
-    // Pass along kill signal
-    process.kill(process.pid, signal)
+    console.log("Sucess. Continuing shutdown...");
+    // Continue shutting down
+    process.exit();
   })
 }
 
