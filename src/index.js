@@ -1,8 +1,7 @@
 const { port, env } = require('./constants')
 const app = require('./config/express-config.js');
 const logger = require('./utils/logger.js');
-// const process = require('process');
-// require(logHandler)
+const sigtermHandler = require('./utils/sigterm-handler');
 
 
 // Declaring port. Heroku generally will choose its own port
@@ -11,10 +10,12 @@ app.listen(port, (err) => {
         logger.error(err);
         return console.log(err);
     }
-    
-    logger.info(`server started [env, port] = [${env}, ${port}]`);
-    return console.log(`server started [env, port] = [${env}, ${port}]`)
+
+    return logger.info(`server started [env, port] = [${env}, ${port}]`);
 });
 
 // Handler for offloading logs before Heroku 
-// process.on('SIGTERM', logHandler);
+process.on('SIGTERM', sigtermHandler);
+
+// SIGINT for debugging, but Heroku uses SIGTERM
+// process.on('SIGINT', sigtermHandler);
