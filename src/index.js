@@ -15,5 +15,7 @@ app.listen(port, (err) => {
 });
 
 // Handler for offloading logs before Heroku 
-// process.on('SIGTERM', sigtermHandler);
-process.on('SIGINT', sigtermHandler);
+process.on('SIGTERM', sigtermHandler);
+
+// SIGINT for debugging, but Heroku uses SIGTERM
+// process.on('SIGINT', sigtermHandler);
