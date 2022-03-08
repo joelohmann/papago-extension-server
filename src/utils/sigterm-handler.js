@@ -16,9 +16,11 @@ async function uploadFiles() {
       fs.readFile('./logs/combined.log', 'utf-8', (err, data) => {
         if (err) reject(err);
 
-        let sql = "INSERT INTO combined_log (Time, Level, Message) VALUES ";
-
         let logs = data.split(/[\r\n]+/);
+        if (logs.length == 1 && !logs[0]) return resolve();
+
+        let sql = "INSERT INTO combined_log (Time, Level, Message) VALUES ";
+        
         logs.forEach((log, i) => {
           if (log.length > 0) {
             let obj = JSON.parse(log);
@@ -42,9 +44,11 @@ async function uploadFiles() {
       fs.readFile('./logs/error.log', 'utf-8', (err, data) => {
         if (err) reject(err);
 
+        let logs = data.split(/[\r\n]+/);
+        if (logs.length == 1 && !logs[0]) return resolve();
+
         let sql = "INSERT INTO error_log (Time, Message) VALUES ";
 
-        let logs = data.split(/[\r\n]+/);
         logs.forEach((log, i) => {
           if (log.length > 0) {
             let obj = JSON.parse(log);
