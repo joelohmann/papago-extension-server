@@ -14,7 +14,7 @@ async function uploadFiles() {
     // Update combined log
     new Promise((resolve, reject) => {      
       fs.readFile('./logs/combined.log', 'utf-8', (err, data) => {
-        if (err) reject(err);
+        if (err) return reject(err);
 
         let logs = data.split(/[\r\n]+/);
         if (logs.length == 1 && !logs[0]) return resolve();
@@ -33,7 +33,7 @@ async function uploadFiles() {
         });
 
         connection.query(sql, (err, result) => {
-          if (err) reject(err);
+          if (err) return reject(err);
 
           resolve(result);
         });
@@ -42,7 +42,7 @@ async function uploadFiles() {
     // Update error log
     new Promise((resolve, reject) => {
       fs.readFile('./logs/error.log', 'utf-8', (err, data) => {
-        if (err) reject(err);
+        if (err) return reject(err);
 
         let logs = data.split(/[\r\n]+/);
         if (logs.length == 1 && !logs[0]) return resolve();
@@ -61,7 +61,7 @@ async function uploadFiles() {
         });
 
         connection.query(sql, (err, result) => {
-          if (err) reject(err);
+          if (err) return reject(err);
 
           resolve();
         });
@@ -76,9 +76,15 @@ function sigtermHandler(signal) {
   uploadFiles()
   .then(() => {
     console.log("Success. Continuing shutdown...");
-    // Continue shutting down
+    
     process.exit();
   })
+  .catch(err => {
+    console.log("Error: " + err);
+    console.log("Continuing shutdown...");
+    
+    process.exit();
+  });
 }
 
 module.exports = sigtermHandler;
