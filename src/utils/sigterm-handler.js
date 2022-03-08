@@ -75,7 +75,7 @@ async function uploadFiles() {
 function sigtermHandler(signal) {
   uploadFiles()
   .then(() => {
-    console.log("Sucess. Continuing shutdown...");
+    console.log("Success. Continuing shutdown...");
     // Continue shutting down
     process.exit();
   })
