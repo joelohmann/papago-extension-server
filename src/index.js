@@ -14,8 +14,10 @@ app.listen(port, (err) => {
     return logger.info(`server started [env, port] = [${env}, ${port}]`);
 });
 
-// Handler for offloading logs before Heroku 
-process.on('SIGTERM', sigtermHandler);
+if (process.env.NODE_ENV === 'production') {
+    // Handler for offloading logs before Heroku 
+    process.on('SIGTERM', sigtermHandler);
+}
 
-// SIGINT for debugging, but Heroku uses SIGTERM
+// Heroku uses SIGTERM, but use SIGINT for debugging
 // process.on('SIGINT', sigtermHandler);
