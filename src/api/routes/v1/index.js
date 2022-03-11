@@ -1,8 +1,12 @@
 const express = require('express');
+const apicache = require('apicache');
 
 const detect = require('../../services/detect.js');
 const translate = require('../../services/translate.js');
 const logger = require('../../../utils/logger.js');
+
+// Init cache
+var cache = apicache.middleware;
 
 const router = express.Router();
 
@@ -15,7 +19,7 @@ router.route('/status').get((req, res) => {
     });
 });
 
-router.route('/detect').post((req, res) => {
+router.route('/detect').post(cache('5 minutes'), (req, res) => {
     detect(req.body)
     .then(({status, data}) => res.status(status).send(data))
     .catch(err => {
@@ -25,7 +29,7 @@ router.route('/detect').post((req, res) => {
     });
 });
 
-router.route('/translate').post((req, res) => {
+router.route('/translate').post(cache('5 minutes'), (req, res) => {
     translate(req.body)
     .then(({status, data}) => res.status(status).send(data))
     .catch(err => {
