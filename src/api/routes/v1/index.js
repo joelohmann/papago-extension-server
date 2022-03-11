@@ -19,8 +19,8 @@ router.route('/status').get((req, res) => {
     });
 });
 
-router.route('/detect').post(cache('5 minutes'), (req, res) => {
-    detect(req.body)
+router.route('/detect').get(cache('5 minutes'), (req, res) => {
+    detect(req.query)
     .then(({status, data}) => res.status(status).send(data))
     .catch(err => {
         // Something went wrong on my end. Naver response was okay.
@@ -29,8 +29,8 @@ router.route('/detect').post(cache('5 minutes'), (req, res) => {
     });
 });
 
-router.route('/translate').post(cache('5 minutes'), (req, res) => {
-    translate(req.body)
+router.route('/translate').get(cache('5 minutes'), (req, res) => {
+    translate(req.query)
     .then(({status, data}) => res.status(status).send(data))
     .catch(err => {
         // Something went wrong on my end. Naver response was okay.
