@@ -56,8 +56,7 @@ async function detect(body) {
         }
 
         let status = transResponse.status;
-        let transJSON = await transResponse.json();
-        let data = transJSON.message.result;
+        let data = await transResponse.json();
 
         return {status, data}
     } catch (err) {

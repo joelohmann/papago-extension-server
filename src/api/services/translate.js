@@ -15,9 +15,7 @@ async function translate(body) {
             body: JSON.stringify(body)
         });
         let status = response.status;
-        let responseJSON = await response.json();
-        let data = responseJSON.message.result;
-
+        let data = await response.json();
         return {status, data};
     } catch (err) {
         logger.error(err);
