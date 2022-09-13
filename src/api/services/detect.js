@@ -51,8 +51,13 @@ async function detect(body) {
             body: JSON.stringify(transBody)
         });
 
+        if (!transResponse.ok) {
+            logger.error("Naver API call failed");
+        }
+
         let status = transResponse.status;
-        let data = await transResponse.json();
+        let transJSON = await transResponse.json();
+        let data = transJSON.message.result;
 
         return {status, data}
     } catch (err) {
