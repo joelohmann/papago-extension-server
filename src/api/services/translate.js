@@ -14,6 +14,11 @@ async function translate(body) {
             },
             body: JSON.stringify(body)
         });
+
+        if (!response.ok) {
+            logger.error(`Naver API translation call failed. Code ${response.status}`);
+        }
+
         let status = response.status;
         let data = await response.json();
         return {status, data};
