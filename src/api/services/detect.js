@@ -1,5 +1,7 @@
 const fetch = require('node-fetch');
-const logger = require('../../utils/logger');
+
+const logger = require('../../utils/logger.js');
+const translate = require('./translate.js');
 
 const DETECT_URL = 'https://openapi.naver.com/v1/papago/detectLangs';
 const TRANSLATE_URL = 'https://openapi.naver.com/v1/papago/n2mt';
@@ -10,7 +12,7 @@ async function detect(body) {
             "query": body.text
         }
 
-        let detectResponse = await fetch(DETECT_URL, {
+        let response = await fetch(DETECT_URL, {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json',
@@ -19,13 +21,13 @@ async function detect(body) {
             },
             body: JSON.stringify(detectBody)
         });
-        let detectJSON = await detectResponse.json();
+        let detectJSON = await response.json();
         let langCode = detectJSON.langCode;
 
-        if (!detectResponse.ok) {
-            logger.error("Naver API call failed");
+        if (!response.ok) {
+            logger.error(`Naver API detection call failed. Code ${response.status}`);
 
-            let status = detectResponse.status;
+            let status = response.status;
             let data = detectJSON;
             return {status, data}
         }
@@ -41,22 +43,7 @@ async function detect(body) {
             'honorific': body.honorific
         }
 
-        let transResponse = await fetch(TRANSLATE_URL, {
-            method: 'POST',
-            headers: {
-                'Content-Type': 'application/json',
-                'X-Naver-Client-Id': process.env.CLIENT_ID,
-                'X-Naver-Client-Secret': process.env.CLIENT_SECRET
-            },
-            body: JSON.stringify(transBody)
-        });
-
-        if (!transResponse.ok) {
-            logger.error("Naver API call failed");
-        }
-
-        let status = transResponse.status;
-        let data = await transResponse.json();
+        let {status, data} = await translate(transBody);
 
         return {status, data}
     } catch (err) {
