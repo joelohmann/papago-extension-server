@@ -4,7 +4,6 @@ const logger = require('../../utils/logger.js');
 const translate = require('./translate.js');
 
 const DETECT_URL = 'https://openapi.naver.com/v1/papago/detectLangs';
-const TRANSLATE_URL = 'https://openapi.naver.com/v1/papago/n2mt';
 
 async function detect(body) {
     try {
