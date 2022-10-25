@@ -30,7 +30,7 @@ router.route('/detect').get(cache('5 minutes'), (req, res) => {
 });
 
 router.route('/translate').get(cache('5 minutes'), (req, res) => {
-    translate(req.query)
+    translate(req.app, req.query)
     .then(({status, data}) => res.status(status).send(data))
     .catch(err => {
         // Something went wrong on my end. Naver response was okay.
