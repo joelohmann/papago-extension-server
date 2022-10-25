@@ -14,7 +14,7 @@ app.listen(port, (err) => {
     return logger.info(`server started [env, port] = [${env}, ${port}]`);
 });
 
-if (process.env.NODE_ENV === 'production') {
+if (env === 'production') {
     // Handler for offloading logs before Heroku 
     process.on('SIGTERM', sigtermHandler);
 }
