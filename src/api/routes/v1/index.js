@@ -20,7 +20,7 @@ router.route('/status').get((req, res) => {
 });
 
 router.route('/detect').get(cache('5 minutes'), (req, res) => {
-    detect(req.query)
+    detect(req.app, req.query)
     .then(({status, data}) => res.status(status).send(data))
     .catch(err => {
         // Something went wrong on my end. Naver response was okay.
