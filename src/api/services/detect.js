@@ -5,7 +5,7 @@ const translate = require('./translate.js');
 
 const DETECT_URL = 'https://openapi.naver.com/v1/papago/detectLangs';
 
-async function detect(body) {
+async function detect(app, body) {
     try {
         let detectBody = {
             "query": body.text
@@ -42,7 +42,7 @@ async function detect(body) {
             'honorific': body.honorific
         }
 
-        let {status, data} = await translate(transBody);
+        let {status, data} = await translate(app, transBody);
 
         return {status, data}
     } catch (err) {
