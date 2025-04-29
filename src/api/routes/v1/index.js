@@ -19,23 +19,35 @@ router.route('/status').get((req, res) => {
     });
 });
 
+// router.route('/detect').get(cache('5 minutes'), (req, res) => {
+//     detect(req.app, req.query)
+//     .then(({status, data}) => res.status(status).send(data))
+//     .catch(err => {
+//         // Something went wrong on my end. Naver response was okay.
+//         res.status(500).send(err);
+//         logger.error(err);
+//     });
+// });
+
+// router.route('/translate').get(cache('5 minutes'), (req, res) => {
+//     translate(req.app, req.query)
+//     .then(({status, data}) => res.status(status).send(data))
+//     .catch(err => {
+//         // Something went wrong on my end. Naver response was okay.
+//         res.status(500).send(err);
+//         logger.error(err);
+//     });
+// });
+
 router.route('/detect').get(cache('5 minutes'), (req, res) => {
-    detect(req.app, req.query)
-    .then(({status, data}) => res.status(status).send(data))
-    .catch(err => {
-        // Something went wrong on my end. Naver response was okay.
-        res.status(500).send(err);
-        logger.error(err);
+    res.status(410).send({
+        message: "This project has been discontinued. Thank you so much for your support."
     });
 });
 
 router.route('/translate').get(cache('5 minutes'), (req, res) => {
-    translate(req.app, req.query)
-    .then(({status, data}) => res.status(status).send(data))
-    .catch(err => {
-        // Something went wrong on my end. Naver response was okay.
-        res.status(500).send(err);
-        logger.error(err);
+    res.status(410).send({
+        message: "This project has been discontinued. Thank you so much for your support."
     });
 });
 
