@@ -40,13 +40,13 @@ router.route('/status').get((req, res) => {
 // });
 
 router.route('/detect').get(cache('5 minutes'), (req, res) => {
-    res.status(410).send({
+    res.send({
         message: "This project has been discontinued. Thank you so much for your support."
     });
 });
 
 router.route('/translate').get(cache('5 minutes'), (req, res) => {
-    res.status(410).send({
+    res.send({
         message: "This project has been discontinued. Thank you so much for your support."
     });
 });
