@@ -41,13 +41,23 @@ router.route('/status').get((req, res) => {
 
 router.route('/detect').get(cache('5 minutes'), (req, res) => {
     res.send({
-        message: "This project has been discontinued. Thank you so much for your support."
+        message: {
+            result: {
+                translatedText: "This project has been discontinued. Thank you so much for your support.",
+                srcLangType: "ko",
+                tarLangType: "en"
+            }
+        }
     });
 });
 
 router.route('/translate').get(cache('5 minutes'), (req, res) => {
     res.send({
-        message: "This project has been discontinued. Thank you so much for your support."
+        message: {
+            result: {
+                translatedText: "This project has been discontinued. Thank you so much for your support."
+            }
+        }
     });
 });
 
